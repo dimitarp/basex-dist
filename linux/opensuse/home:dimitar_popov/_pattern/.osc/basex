@@ -1,0 +1,21 @@
+<!-- See https://gitorious.org/opensuse/libzypp/blobs/master/zypp/parser/yum/schema/patterns.rng -->
+
+<pattern
+ xmlns="http://novell.com/package/metadata/suse/pattern"
+ xmlns:rpm="http://linux.duke.edu/metadata/rpm"
+>
+    <name>basex-meta</name>
+    <summary>BaseX and Java docs</summary>
+    <description>Meta package with BaseX and Java docs.</description>
+    <uservisible/>
+    <category lang="en">Productivity/Database</category>
+    <rpm:recommends>
+      <rpm:entry name="basex"/>
+      <rpm:entry name="basex-javadoc"/>
+    </rpm:recommends>
+    <rpm:suggests>
+      <rpm:entry name="xml-commons-resolver"/>
+      <rpm:entry name="tagsoup"/>
+      <rpm:entry name="lucene-contrib"/>
+    </rpm:suggests>
+</pattern>

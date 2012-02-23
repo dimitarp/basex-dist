@@ -1,0 +1,13 @@
+<services>
+
+  <service name="tar_scm">
+    <param name="url">git://github.com/BaseXdb/basex.git</param>
+    <param name="scm">git</param>
+    <param name="version">7.1.1</param>
+    <param name="versionprefix">7.1</param>
+    <param name="revision">7.1.1</param>
+  </service>
+
+  <service name="download_files"/>
+
+</services>

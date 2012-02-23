@@ -1,0 +1,5 @@
+<directory name="BaseX" rev="136" srcmd5="1839f217efffb3a60b81a3e52bc3c8c0" vrev="4">
+  <serviceinfo code="succeeded" xsrcmd5="bbda222e22ae69ab35c8a7ce8a71ccde" />
+  <entry md5="aa3f4f270bbdf390cae3700ceeb9d878" mtime="1329741789" name="_service" size="324" />
+  <entry md5="3647ac9a58d42b6a18a89b6f97b80867" mtime="1329675605" name="basex.spec" size="8474" />
+</directory>

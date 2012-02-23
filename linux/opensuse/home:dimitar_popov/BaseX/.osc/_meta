@@ -1,0 +1,31 @@
+<package project="home:dimitar_popov" name="BaseX">
+  <title>BaseX XML database and XPath/XQuery processor</title>
+  <description>BaseX is a very fast and light-weight, yet powerful XML database and XPath/XQuery processor, including support for the latest W3C Full Text and Update Recommendations. It supports large XML instances and offers a highly interactive front-end (basexgui). Apart from two local standalone modes, BaseX offers a client/server architecture.</description>
+  <useforbuild>
+    <disable/>
+  </useforbuild>
+  <publish>
+    <disable/>
+    <enable repository="CentOS_CentOS-6"/>
+    <enable repository="Fedora_15"/>
+    <enable repository="openSUSE_11.4"/>
+    <enable repository="openSUSE_Factory"/>
+    <enable repository="openSUSE_Tumbleweed"/>
+    <enable repository="RedHat_RHEL-6"/>
+    <enable repository="openSUSE_12.1"/>
+    <enable repository="Fedora_16"/>
+  </publish>
+  <build>
+    <disable/>
+    <enable repository="openSUSE_11.4"/>
+    <enable repository="openSUSE_Factory"/>
+    <enable repository="openSUSE_Tumbleweed"/>
+    <enable repository="RedHat_RHEL-6"/>
+    <enable repository="Fedora_15"/>
+    <enable repository="CentOS_CentOS-6"/>
+    <enable repository="Mandriva_2011"/>
+    <enable repository="openSUSE_12.1"/>
+    <enable repository="Fedora_16"/>
+  </build>
+</package>
+
