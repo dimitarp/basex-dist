@@ -122,9 +122,17 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE13}
 %{_javadocdir}/%{name}
 
 %post
+# update mime-type associations
+/usr/bin/update-desktop-database &> /dev/null || :
+
+# touch to force icon cache update
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 
 %postun
+# update mime-type associations
+/usr/bin/update-desktop-database &> /dev/null || :
+
+# touch to force icon cache update
 if [ $1 -eq 0 ] ; then
     /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
     /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
