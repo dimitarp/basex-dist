@@ -1,7 +1,8 @@
 [Desktop Entry]
 Version=1.0
 Name=BaseX
-Comment=XML database and XPath/XQuery processor
+GenericName=BaseX XML database and XPath/XQuery processor
+Comment=Graphical user interface of BaseX XML database and XPath/XQuery processor
 Type=Application
 Exec=basexgui
 Icon=basex
