@@ -108,12 +108,20 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE13}
 %{__install} -D -m 644 %{SOURCE12} %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 
 # start scripts
-%jpackage_script org.basex.BaseX "-Xmx512m" "" %{name}:tagsoup:xml-commons-resolver:lucene-analyzers:lucene-snowball basex true
-%jpackage_script org.basex.BaseXGUI "-Xmx512m" "" %{name}:tagsoup:xml-commons-resolver:lucene-analyzers:lucene-snowball basexgui true
-%jpackage_script org.basex.BaseXServer "-Xmx512m" "" %{name}:tagsoup:xml-commons-resolver:lucene-analyzers:lucene-snowball basexserver true
-%jpackage_script org.basex.BaseXServer "" "stop" %{name}:tagsoup:xml-commons-resolver:lucene-analyzers:lucene-snowball basexserverstop true
-%jpackage_script org.basex.BaseXClient "" "" %{name}:tagsoup:xml-commons-resolver:lucene-analyzers:lucene-snowball basexclient true
-# jpackage_script org.basex.BaseX "-Xmx512m" "-q" %{name}:tagsoup:xml-commons-resolver:lucene-analyzers:lucene-snowball xquery true
+%jpackage_script org.basex.BaseX       "-Xmx512m" "" %{name}:tagsoup:xml-commons-resolver:lucene-contrib/lucene-analyzers:lucene-contrib/lucene-snowball basex       true
+%jpackage_script org.basex.BaseXGUI    "-Xmx512m" "" %{name}:tagsoup:xml-commons-resolver:lucene-contrib/lucene-analyzers:lucene-contrib/lucene-snowball basexgui    true
+%jpackage_script org.basex.BaseXServer "-Xmx512m" "" %{name}:tagsoup:xml-commons-resolver:lucene-contrib/lucene-analyzers:lucene-contrib/lucene-snowball basexserver true
+%jpackage_script org.basex.BaseXClient ""         "" %{name} basexclient true
+
+%__cat > %{buildroot}%{_bindir}/basexserverstop << EOF
+#!/bin/sh
+basexserver "\$@" stop
+EOF
+
+# %__cat > %{buildroot}%{_bindir}/xquery << EOF
+# #!/bin/sh
+# basex -q "\$@"
+# EOF
 
 %files
 %{_mavenpomdir}/JPP-%{name}.pom
