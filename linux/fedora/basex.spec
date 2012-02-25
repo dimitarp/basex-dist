@@ -6,7 +6,7 @@ Summary:        XML database and XPath/XQuery processor
 Group:          Applications/Databases
 License:        BSD
 URL:            http://basex.org
-Source0:        https://github.com/dimitarp/basex-dist/raw/linux-rpm/linux/fedora/%{name}-%{version}.tar.gz
+Source0:        http://files.basex.org/maven/org/basex/basex/%{version}/%{name}-%{version}.tar.gz
 Source1:        https://raw.github.com/BaseXdb/basex-dist/master/linux/debian/man/basex.1
 Source2:        https://raw.github.com/BaseXdb/basex-dist/master/linux/debian/man/basexclient.1
 Source3:        https://raw.github.com/BaseXdb/basex-dist/master/linux/debian/man/basexserver.1
