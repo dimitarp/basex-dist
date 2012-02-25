@@ -113,7 +113,7 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE13}
 %jpackage_script org.basex.BaseXServer "-Xmx512m" "" %{name}:tagsoup:xml-commons-resolver:lucene-analyzers:lucene-snowball basexserver true
 %jpackage_script org.basex.BaseXServer "" "stop" %{name}:tagsoup:xml-commons-resolver:lucene-analyzers:lucene-snowball basexserverstop true
 %jpackage_script org.basex.BaseXClient "" "" %{name}:tagsoup:xml-commons-resolver:lucene-analyzers:lucene-snowball basexclient true
-# %jpackage_script org.basex.BaseX "-Xmx512m" "-q" %{name}:tagsoup:xml-commons-resolver:lucene-analyzers:lucene-snowball xquery true
+# jpackage_script org.basex.BaseX "-Xmx512m" "-q" %{name}:tagsoup:xml-commons-resolver:lucene-analyzers:lucene-snowball xquery true
 
 %files
 %{_mavenpomdir}/JPP-%{name}.pom
