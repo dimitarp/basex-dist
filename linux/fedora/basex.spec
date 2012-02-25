@@ -20,12 +20,18 @@ Source10:       https://github.com/BaseXdb/basex-dist/raw/master/images/BaseX_25
 Source11:       https://github.com/BaseXdb/basex-dist/raw/master/images/BaseX_512px.png
 Source12:       https://raw.github.com/BaseXdb/basex-dist/master/images/BaseX.svg
 Source13:       https://raw.github.com/BaseXdb/basex-dist/master/linux/basex.desktop
+Source14:       https://github.com/dimitarp/basex-dist/raw/linux-rpm/linux/fedora/%{name}-pom.patch
+
+# patches the pom.xml to remove unneeded sections preventint the package build
+Patch0:         %{name}-pom.patch
 
 BuildArch:      noarch
 
 BuildRequires:  jpackage-utils
 
 BuildRequires:  java-devel
+
+BuildRequires:  junit4
 
 BuildRequires:  maven
 
@@ -36,6 +42,7 @@ BuildRequires:    maven-javadoc-plugin
 BuildRequires:    maven-release-plugin
 BuildRequires:    maven-resources-plugin
 BuildRequires:    maven-surefire-plugin
+BuildRequires:    maven-source-plugin
 
 Requires:       jpackage-utils
 Requires:       java
@@ -67,11 +74,11 @@ mvn-rpmbuild install javadoc:aggregate -DskipTests
 %install
 # jars
 mkdir -p %{buildroot}%{_javadir}
-cp -p target/%{name}.jar %{buildroot}%{_javadir}/%{name}.jar
+cp -p target/%{name}-%{version}.jar %{buildroot}%{_javadir}/%{name}.jar
 
 # javadoc
 mkdir -p %{buildroot}%{_javadocdir}/%{name}
-cp -rp target/apidocs %{buildroot}%{_javadocdir}/%{name}
+cp -rp target/site/apidocs %{buildroot}%{_javadocdir}/%{name}
 
 # maven pom
 %{__install} -d -m 755 %{buildroot}%{_mavenpomdir}
