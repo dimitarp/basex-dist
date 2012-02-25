@@ -1,35 +1,35 @@
 diff --git a/pom.xml b/pom.xml
-index 6001683..8016ce8 100644
+index 809e3df..a0323a7 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -70,27 +70,6 @@
        <scope>test</scope>
      </dependency>
      <dependency>
--      <groupId>jp.sourceforge.igo</groupId>
--      <artifactId>igo</artifactId>
--      <version>0.4.3</version>
--      <scope>runtime</scope>
--      <optional>true</optional>
+-    	<groupId>jp.sourceforge.igo</groupId>
+-    	<artifactId>igo</artifactId>
+-    	<version>0.4.3</version>
+-    	<scope>runtime</scope>
+-    	<optional>true</optional>
 -    </dependency>
 -    <dependency>
--      <groupId>org.apache</groupId>
--      <artifactId>lucene-stemmers</artifactId>
--      <version>3.4.0</version>
--      <scope>runtime</scope>
--      <optional>true</optional>
+-    	<groupId>org.apache</groupId>
+-    	<artifactId>lucene-stemmers</artifactId>
+-    	<version>3.4.0</version>
+-    	<scope>runtime</scope>
+-    	<optional>true</optional>
 -    </dependency>
 -    <dependency>
--      <groupId>org.ccil.cowan.tagsoup</groupId>
--      <artifactId>tagsoup</artifactId>
--      <version>1.2</version>
--      <scope>runtime</scope>
--      <optional>true</optional>
+-    	<groupId>org.ccil.cowan.tagsoup</groupId>
+-    	<artifactId>tagsoup</artifactId>
+-    	<version>1.2</version>
+-    	<scope>runtime</scope>
+-    	<optional>true</optional>
 -    </dependency>
 -    <dependency>
-       <groupId>xml-resolver</groupId>
-       <artifactId>xml-resolver</artifactId>
-       <version>1.2</version>
+     	<groupId>xml-resolver</groupId>
+     	<artifactId>xml-resolver</artifactId>
+     	<version>1.2</version>
 @@ -128,15 +107,6 @@
        </plugin>
        <plugin>
@@ -46,7 +46,7 @@ index 6001683..8016ce8 100644
          <artifactId>maven-source-plugin</artifactId>
          <version>2.1.2</version>
          <configuration>
-@@ -152,124 +122,6 @@
+@@ -152,124 +122,7 @@
            </execution>
          </executions>
        </plugin>
@@ -123,37 +123,37 @@ index 6001683..8016ce8 100644
 -          </archive>
 -        </configuration>
 -      </plugin>
--    </plugins>
--    <!-- Eclipse plugin m2e does not support "copy-dependencies" -->
+     </plugins>
+-    <!-- Eclipse Maven plugin does not "support copy-dependencies" -->
 -    <!-- we need to tell it to ignore the goal -->
 -    <pluginManagement>
--      <plugins>
--        <plugin>
--          <groupId>org.eclipse.m2e</groupId>
--          <artifactId>lifecycle-mapping</artifactId>
--          <version>1.0.0</version>
--          <configuration>
--            <lifecycleMappingMetadata>
--              <pluginExecutions>
--                <pluginExecution>
--                  <pluginExecutionFilter>
--                    <groupId>org.apache.maven.plugins</groupId>
--                    <artifactId>maven-dependency-plugin</artifactId>
--                    <versionRange>[2.0,)</versionRange>
--                    <goals>
--                      <goal>copy-dependencies</goal>
--                    </goals>
--                  </pluginExecutionFilter>
--                  <action>
--                    <ignore />
--                  </action>
--                </pluginExecution>
--              </pluginExecutions>
--            </lifecycleMappingMetadata>
--          </configuration>
--        </plugin>
--      </plugins>
--    </pluginManagement>
+-     <plugins>
+-       <plugin>
+-         <groupId>org.eclipse.m2e</groupId>
+-         <artifactId>lifecycle-mapping</artifactId>
+-         <version>1.0.0</version>
+-         <configuration>
+-           <lifecycleMappingMetadata>
+-             <pluginExecutions>
+-               <pluginExecution>
+-                 <pluginExecutionFilter>
+-                   <groupId>org.apache.maven.plugins</groupId>
+-                   <artifactId>maven-dependency-plugin</artifactId>
+-                   <versionRange>[2.0,)</versionRange>
+-                   <goals>
+-                     <goal>copy-dependencies</goal>
+-                   </goals>
+-                 </pluginExecutionFilter>
+-                 <action>
+-                   <ignore />
+-                 </action>
+-               </pluginExecution>
+-             </pluginExecutions>
+-           </lifecycleMappingMetadata>
+-         </configuration>
+-       </plugin>
+-     </plugins>
+-   </pluginManagement>
 -    <extensions>
 -      <extension>
 -        <groupId>org.apache.maven.wagon</groupId>
