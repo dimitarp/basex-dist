@@ -20,7 +20,7 @@ Source10:       https://github.com/BaseXdb/basex-dist/raw/master/images/BaseX_25
 Source11:       https://github.com/BaseXdb/basex-dist/raw/master/images/BaseX_512px.png
 Source12:       https://raw.github.com/BaseXdb/basex-dist/master/images/BaseX.svg
 Source13:       https://raw.github.com/BaseXdb/basex-dist/master/linux/basex.desktop
-Source14:       https://github.com/dimitarp/basex-dist/raw/linux-rpm/linux/fedora/%{name}-pom.patch
+Source14:       https://github.com/BaseXdb/basex-dist/raw/master/linux/fedora/%{name}-pom.patch
 
 # patches the pom.xml to remove unneeded sections preventint the package build
 Patch0:         %{name}-pom.patch
@@ -67,6 +67,7 @@ This package contains the API documentation for %{name}.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 mvn-rpmbuild install javadoc:aggregate -DskipTests
@@ -89,7 +90,7 @@ cp -rp target/site/apidocs %{buildroot}%{_javadocdir}/%{name}
 # desktop file
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE13}
 
-# manpages
+# man pages
 %{__install} -d -m 0755 %{buildroot}%{_mandir}/man1/
 %{__install} -D -m 644 %{SOURCE1} %{buildroot}%{_mandir}/man1/basex.1
 %{__install} -D -m 644 %{SOURCE2} %{buildroot}%{_mandir}/man1/basexclient.1
@@ -107,12 +108,12 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE13}
 %{__install} -D -m 644 %{SOURCE12} %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 
 # start scripts
-%jpackage_script org.basex.BaseX "-Xmx512m" "" tagsoup:xml-commons-resolver:lucene-analyzers:lucene-snowball basex true
-%jpackage_script org.basex.BaseXGUI "-Xmx512m" "" tagsoup:xml-commons-resolver:lucene-analyzers:lucene-snowball basexgui true
-%jpackage_script org.basex.BaseXServer "-Xmx512m" "" tagsoup:xml-commons-resolver:lucene-analyzers:lucene-snowball basexserver true
-%jpackage_script org.basex.BaseXServer "" "stop" tagsoup:xml-commons-resolver:lucene-analyzers:lucene-snowball basexserverstop true
-%jpackage_script org.basex.BaseXClient "" "" tagsoup:xml-commons-resolver:lucene-analyzers:lucene-snowball basexclient true
-#%jpackage_script org.basex.BaseX "-Xmx512m" "-q" tagsoup:xml-commons-resolver:lucene-analyzers:lucene-snowball xquery true
+%jpackage_script org.basex.BaseX "-Xmx512m" "" %{name}:tagsoup:xml-commons-resolver:lucene-analyzers:lucene-snowball basex true
+%jpackage_script org.basex.BaseXGUI "-Xmx512m" "" %{name}:tagsoup:xml-commons-resolver:lucene-analyzers:lucene-snowball basexgui true
+%jpackage_script org.basex.BaseXServer "-Xmx512m" "" %{name}:tagsoup:xml-commons-resolver:lucene-analyzers:lucene-snowball basexserver true
+%jpackage_script org.basex.BaseXServer "" "stop" %{name}:tagsoup:xml-commons-resolver:lucene-analyzers:lucene-snowball basexserverstop true
+%jpackage_script org.basex.BaseXClient "" "" %{name}:tagsoup:xml-commons-resolver:lucene-analyzers:lucene-snowball basexclient true
+# %jpackage_script org.basex.BaseX "-Xmx512m" "-q" %{name}:tagsoup:xml-commons-resolver:lucene-analyzers:lucene-snowball xquery true
 
 %files
 %{_mavenpomdir}/JPP-%{name}.pom
@@ -120,10 +121,26 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE13}
 %{_javadir}/%{name}.jar
 %doc
 
+# desktop file
+%{_datadir}/applications/%{name}.desktop
+
+# man pages
 %{_mandir}/man1/basex.1*
 %{_mandir}/man1/basexclient.1*
 %{_mandir}/man1/basexserver.1*
 %{_mandir}/man1/basexgui.1*
+
+# icons
+%{_datadir}/icons/hicolor
+
+# start scripts
+%defattr(0644,root,root,0755)
+%attr(0755,root,root) %{_bindir}/basex
+%attr(0755,root,root) %{_bindir}/basexclient
+%attr(0755,root,root) %{_bindir}/basexgui
+%attr(0755,root,root) %{_bindir}/basexserver
+%attr(0755,root,root) %{_bindir}/basexserverstop
+# %attr(0755,root,root) %{_bindir}/xquery
 
 %files javadoc
 %{_javadocdir}/%{name}
