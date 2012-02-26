@@ -174,3 +174,6 @@ fi
 /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %changelog
+
+* Sun Feb 26 2012 Dimitar Popov <dimitar.popov at  uni-konstanz.de> 7.1.1-1
+- Initial release for Fedora.
