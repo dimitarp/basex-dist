@@ -6,6 +6,7 @@ use warnings;
 use strict;
 use File::Basename;
 use File::Copy;
+use File::Copy::Recursive qw(fcopy rcopy dircopy fmove rmove dirmove);
 use File::Path;
 use Archive::Zip qw( :ERROR_CODES :CONSTANTS );
 
@@ -25,19 +26,19 @@ my $version = "";
 my $full = "";
 
 # prepare release
-prepare();
+#prepare();
 # create zip file
 zip();
 # create war file
-war();
+#war();
 # create app file
-app();
+#app();
 # create installer
-exe();
+#exe();
 # create pad file
-pad();
+#pad();
 # finish release
-finish();
+#finish();
 
 # prepares a new release
 sub prepare {
@@ -72,18 +73,19 @@ sub prepare {
 
   # assemble webapp files
   rmtree("webapp");
-  mkdir "webapp";
-  for my $f(glob("../basex-api/src/main/webapp/*")) {
-    copy($f, "webapp/".basename($f));
-  }
-  mkdir "webapp/restxq";
-  for my $f(glob("../basex-api/src/main/webapp/restxq/*")) {
-    copy($f, "webapp/restxq/".basename($f));
-  }
-  mkdir "webapp/WEB-INF";
-  for my $f(glob("../basex-api/src/main/webapp/WEB-INF/*")) {
-    copy($f, "webapp/WEB-INF/".basename($f));
-  }
+  dircopy("../basex-api/src/main/webapp", "webapp");
+#  mkdir "webapp";
+#   for my $f(glob("../basex-api/src/main/webapp/*")) {
+#     copy($f, "webapp/".basename($f));
+#   }
+#  mkpath "webapp/restxq";
+#   for my $f(glob("../basex-api/src/main/webapp/restxq/*")) {
+#     copy($f, "webapp/restxq/".basename($f));
+#   }
+#  mkpath "webapp/WEB-INF";
+#   for my $f(glob("../basex-api/src/main/webapp/WEB-INF/*")) {
+#     copy($f, "webapp/WEB-INF/".basename($f));
+#   }
 
   # create packages
   pkg("basex");
@@ -134,6 +136,7 @@ sub zip {
   # Add directories
   my $name = "basex";
   # Add files from disk
+  print "* Add files from disk\n";
   $zip->addDirectory("$name/");
   $zip->addFile("$release/basex.jar", "$name/BaseX.jar");
   $zip->addFile("../$name/license.txt", "$name/license.txt");
@@ -142,6 +145,7 @@ sub zip {
   $zip->addString("", "$name/.basex");
 
   # Add scripts
+  print "* Add scripts\n";
   $zip->addDirectory("$name/bin");
   foreach my $file(glob("$release/bin/*")) {
     (my $target = $file) =~ s|.*/|$name/bin/|;
@@ -149,18 +153,22 @@ sub zip {
     $m->unixFileAttributes($file =~ /.bat$/ ? 0644 : 0755);
   }
   # Add database directory
+  print "* Add database directory\n";
   $zip->addDirectory("$name/data");
   # Add example files
+  print "* Add example files\n";
   $zip->addDirectory("$name/etc");
   foreach my $file(glob("etc/*")) {
     $zip->addFile($file, "$name/$file") if -f $file;
   }
   # Add xqdoc files
+  print "* Add xqdoc files\n";
   $zip->addDirectory("$name/etc/modules");
   foreach my $file(glob("etc/modules/*")) {
     $zip->addFile($file, "$name/$file");
   }
   # Add libraries
+  print "* Add libraries\n";
   $zip->addDirectory("$name/lib");
   foreach my $file(glob("../basex/lib/*"), glob("../basex-api/lib/*"), glob("../basex-dist/lib/*")) {
     next if $file =~ m|/lib/basex-$version|;
@@ -169,15 +177,25 @@ sub zip {
   }
   $zip->addFile("$release/basex-api.jar", "$name/lib/basex-api.jar");
   # Add repository directory
+  print "* Add repository directory\n";
   $zip->addDirectory("$name/repo");
   # Add webapp directory
+  print "* Add webapp directory\n";
   $zip->addDirectory("$name/webapp");
   foreach my $file(glob("webapp/*")) {
     $zip->addFile($file, "$name/$file") if -f $file;
   }
   $zip->addDirectory("$name/webapp/WEB-INF");
   foreach my $file(glob("webapp/WEB-INF/*")) {
-    $zip->addFile($file, "$name/$file");
+    $zip->addFile($file, "$name/$file") if -f $file;
+  }
+  $zip->addDirectory("$name/webapp/WEB-INF/data");
+  foreach my $file(glob("webapp/WEB-INF/data*")) {
+    $zip->addFile($file, "$name/$file") if -f $file;
+  }
+  $zip->addDirectory("$name/webapp/WEB-INF/repo");
+  foreach my $file(glob("webapp/WEB-INF/repo*")) {
+    $zip->addFile($file, "$name/$file") if -f $file;
   }
   $zip->addDirectory("$name/webapp/restxq");
   foreach my $file(glob("webapp/restxq/*")) {
@@ -185,6 +203,7 @@ sub zip {
   }
 
   # save the zip file
+  print "* save the zip file\n";
   unless ($zip->writeToFileNamed("$release/BaseX.zip") == AZ_OK ) {
     die "Could not write ZIP file.";
   }
