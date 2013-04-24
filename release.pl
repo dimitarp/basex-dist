@@ -178,29 +178,10 @@ sub zip {
   $zip->addFile("$release/basex-api.jar", "$name/lib/basex-api.jar");
   # Add repository directory
   print "* Add repository directory\n";
-  $zip->addDirectory("$name/repo");
+  $zip->addTree('webapp/WEB-INF/repo', "$name/repo");
   # Add webapp directory
   print "* Add webapp directory\n";
-  $zip->addDirectory("$name/webapp");
-  foreach my $file(glob("webapp/*")) {
-    $zip->addFile($file, "$name/$file") if -f $file;
-  }
-  $zip->addDirectory("$name/webapp/WEB-INF");
-  foreach my $file(glob("webapp/WEB-INF/*")) {
-    $zip->addFile($file, "$name/$file") if -f $file;
-  }
-  $zip->addDirectory("$name/webapp/WEB-INF/data");
-  foreach my $file(glob("webapp/WEB-INF/data*")) {
-    $zip->addFile($file, "$name/$file") if -f $file;
-  }
-  $zip->addDirectory("$name/webapp/WEB-INF/repo");
-  foreach my $file(glob("webapp/WEB-INF/repo*")) {
-    $zip->addFile($file, "$name/$file") if -f $file;
-  }
-  $zip->addDirectory("$name/webapp/restxq");
-  foreach my $file(glob("webapp/restxq/*")) {
-    $zip->addFile($file, "$name/$file");
-  }
+  $zip->addTree('webapp', "$name/webapp"); 
 
   # save the zip file
   print "* save the zip file\n";
